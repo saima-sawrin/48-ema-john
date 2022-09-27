@@ -5,18 +5,25 @@ const Cart = ({cart}) => {
     console.log(cart);
     let total =0;
     let shipping = 0;
+    let tax = 0;
+    let quantity = 0;
+    // let grandTotal = 0;
     for(const product of cart){
-        total = total + product.price;
-        shipping  = shipping + product.shipping;
+        quantity = quantity + product.quantity;
+        total = total + product.price * product.quantity ;
+        shipping  = shipping + product.shipping ;
+        tax = parseFloat((total*0.1).toFixed(2));
+        // grandTotal = (total + shipping + tax).toFixed(2);
     }
+    const grandTotal =(total + shipping + tax);
     return (
         <div className='cart'>
             <h2>Order Summary</h2>
-              <p>Selected Item: {cart.length}</p>
+              <p>Selected Item: {quantity}</p>
               <p>Total Price:{total}</p>
               <p>Total Shipping:{shipping}</p>
-              <p>Tax:{}</p>
-              <h2>Grand Total:{}</h2>
+              <p>Tax:{tax}</p>
+              <h2>Grand Total:{grandTotal}</h2>
               <button>Clear Cart</button>
               <br />
               <button>Review Order</button>
